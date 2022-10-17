@@ -11,54 +11,52 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 //@SessionScoped
 public class CalcBB {
-	private String x;	//kwota
-	private String y;	//ile miesiący
-	private String z;	//oprocentowanie
+	private String amount;	//kwota
+	private String time;	//ile miesiący
+	private String interest;	//oprocentowanie
 	private Double result;	//rata miesięczna
 
 	@Inject
 	FacesContext ctx;
 	//kwota
-	public String getX() {
-		return x;
+	public String getAmount() {
+		return amount;
 	}
 
-	public void setX(String x) {
-		this.x = x;
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
 	//ile miesiący
-	public String getY() {
-		return y;
+	public String getTime() {
+		return time;
 	}
 
-	public void setY(String y) {
-		this.y = y;
+	public void setTime(String time) {
+		this.time = time;
 	}
 	//oprocentowanie
-	public String getZ() {
-		return y;
+	public String getInterest() {
+		return interest;
 	}
 
-	public void setZ(String z) {
-		this.z = z;
+	public void setInterest(String interest) {
+		this.interest = interest;
 	}
 	//wynik
 	public Double getResult() {
 		return result;
 	}
 
-	public void setResult(Double result) {
-		this.result = result;
-	}
+	
 
 	public boolean doTheMath() {
 		try {
 			
-			double x = Double.parseDouble(this.x);
-			double y = Double.parseDouble(this.y);
-			double z = Double.parseDouble(this.z);
+			double amount = Double.parseDouble(this.amount);
+			double time = Double.parseDouble(this.time);
+			double interest = Double.parseDouble(this.interest);
 
-			result = Math.ceil((x + (z/100)*x*(y/12))/y);
+			result = Math.ceil((amount + (interest/100)*amount*(time/12))/time);
 
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
 			return true;
