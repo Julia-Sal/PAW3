@@ -8,10 +8,10 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <h:head>
-	<p:panel >
-		<center>
+	<p:panel style = "text-align:center">
+		
 		<h1>Kalkulator kredytowy</h1>
-		</center>
+		
 	
 	<h:form>
 	<div class="card">
@@ -77,16 +77,25 @@
 		</h:form>
 	</p:panel>
 	
+
 	
-  
+	
 	
 	<p:panel>
-		<h:panelGrid id="bot" columns="1">
+		<h:panelGrid id="bot" columns="1" style = "text-align:right; margin-left: auto" >
 	
 		<p:outputLabel  value="Julia Sałacka PAW3" />
 		<p:outputLabel  value="18.10.2022" />
 	
 		</h:panelGrid>
+		
+		<!-- TIME -->
+		<div class="card align-items-right "  style = "text-align:right">
+   		<h:form>
+        <p:clock pattern="HH:mm:ss" mode="server" style="background-color:red"/>
+		</h:form>
+		</div>
+
 	</p:panel>
 
 </h:body>
