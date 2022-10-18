@@ -7,49 +7,89 @@
 	 
 	xmlns:p="http://primefaces.org/ui">
 	
-	
-
 <h:head>
+	<p:panel >
+		<center>
+		<h1>Kalkulator kredytowy</h1>
+		</center>
 	
-	<title>Kalkulator kredytowy</title>
+	<h:form>
+	<div class="card">
+	
+    <p:tabMenu activeIndex="#{param.i}">
+        <p:menuitem value="Home" url="localhost:8080/kredyt" icon="pi pi-fw pi-home">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+        <p:menuitem value="Primefaces : Dokumentation" url="http://www.primefaces.org/documentation" target="_blank">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+        <p:menuitem value="Primefaces : Demo" url="https://www.primefaces.org/showcase/getstarted.xhtml?jfwid=1438c" target="_blank">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+	</p:tabMenu>
+	</div>
+	</h:form>
+<!--  	
+		<h:form>
+			<div class="card">
+    		<p:breadCrumb>
+        		<p:menuitem value="Kalkulator" url="localhost:8080/kredyt"/>
+        		<p:menuitem value="Primefaces : Dokumentation" url="http://www.primefaces.org/documentation"/>
+        		<p:menuitem value="Primefaces : Demo" url="https://www.primefaces.org/showcase/getstarted.xhtml?jfwid=1438c"/>
+    		</p:breadCrumb>
+			</div>
+		</h:form>-->
+	</p:panel>
 	
 </h:head>
 
 
 <h:body>
-
-	<p:panel>
-	<center>
-	<h1>Kalkulator kredytowy</h1></center>
-	</p:panel>
 	
-	<p:panel>
-	<h:form id="bla">
+	<!-- KALKULATOR -->
+	<p:panel header="Julia Sałacka 18.10.2022" toggleable="true" toggleSpeed="500"
+                closeSpeed="500" widgetVar="panel"> 
+		<h:form id="bla">
 	
-	<h:panelGrid id="grid" columns="3" cellpadding="5">
+		<h:panelGrid id="grid" columns="3" cellpadding="5">
 	
-  		<p:outputLabel for="x" value="kwota:" />
-  		<p:inputText id="x" value="#{calcBB.amount}" required="true" requiredMessage = "Brak wartości" />
-		<p:message for="x" />
+  				<p:outputLabel for="x" value="kwota:" />
+  				<p:inputText id="x" value="#{calcBB.amount}" required="true" requiredMessage = "Brak wartości" />
+				<p:message for="x" />
   		
-  		<p:outputLabel for="y" value="ilość miesięcy:" /> 
-  		<p:inputText id="y" value="#{calcBB.time}" required="true" requiredMessage = "Brak wartości"/>
-		<p:message for="y" />
+  				<p:outputLabel for="y" value="ilość miesięcy:" /> 
+  				<p:inputText id="y" value="#{calcBB.time}" required="true" requiredMessage = "Brak wartości"/>
+				<p:message for="y" />
 		
-		<p:outputLabel for="z" value="oprocentowanie:" /> 
-		<p:inputText id="z" value="#{calcBB.interest}" required="true" requiredMessage = "Brak wartości"/>
-		<p:message for="z" />
+				<p:outputLabel for="z" value="oprocentowanie:" /> 
+				<p:inputText id="z" value="#{calcBB.interest}" required="true" requiredMessage = "Brak wartości"/>
+				<p:message for="z" />
 	
 		
-		<p:commandButton value="Oblicz" action="#{calcBB.calc()}" update ="@form"/>
+				<!--  <p:commandButton value="Oblicz" action="#{calcBB.calc()}" update ="@form"/>-->
 		
-		<p:commandButton value="AJAX" action="#{calcBB.calc_AJAX()}" update="msg" />
+				<p:commandButton value="AJAX" action="#{calcBB.calc_AJAX()}" update="msg" />
 		
-		</h:panelGrid>	
+			</h:panelGrid>	
 		
-		<p:messages id="msg" />
+			<p:messages id="msg" />
 	
-	</h:form>
+		</h:form>
 	</p:panel>
+	
+	
+  
+	
+	<p:panel>
+		<h:panelGrid id="bot" columns="1">
+	
+		<p:outputLabel  value="Julia Sałacka PAW3" />
+		<p:outputLabel  value="18.10.2022" />
+	
+		</h:panelGrid>
+	</p:panel>
+
 </h:body>
+
+
 </html>

@@ -6,14 +6,18 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-<h:head>
-	<title>Rata miesięczna:</title>
-</h:head>
+<p:panel header = "Rata miesięczna:">	
+
+<h:head />
 <h:body>
+
 	<h:messages />
 	miesięczna rata kredytu: #{calcBB.result}
 	<h:form>
 		<p:commandButton value="Powrót" action="index" />
 	</h:form>
+
 </h:body>
+</p:panel>	
+
 </html>
