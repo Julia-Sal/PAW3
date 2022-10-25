@@ -2,8 +2,12 @@ package com.jsfcourse.calc;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import java.util.ResourceBundle;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -11,35 +15,46 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 //@SessionScoped
 public class CalcBB {
-	private String amount;	//kwota
-	private String time;	//ile miesiący
-	private String interest;	//oprocentowanie
+	private Double amount;	//kwota
+	private Double time;	//ile miesiący
+	private Double interest;	//oprocentowanie
 	private Double result;	//rata miesięczna
 
 	@Inject
 	FacesContext ctx;
+	
+	@Inject
+	@ManagedProperty("#{txtCalcErr}")
+	private ResourceBundle txtCalcErr;
+
+	// Resource injected
+	@Inject
+	@ManagedProperty("#{txtCalc}")
+	private ResourceBundle txtCalc;
+	
+	
 	//kwota
-	public String getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	//ile miesiący
-	public String getTime() {
+	public Double getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Double time) {
 		this.time = time;
 	}
 	//oprocentowanie
-	public String getInterest() {
+	public Double getInterest() {
 		return interest;
 	}
 
-	public void setInterest(String interest) {
+	public void setInterest(Double interest) {
 		this.interest = interest;
 	}
 	//wynik
@@ -52,17 +67,10 @@ public class CalcBB {
 	public boolean doTheMath() {
 		try {
 			
-			double amount = Double.parseDouble(this.amount);
-			double time = Double.parseDouble(this.time);
-			double interest = Double.parseDouble(this.interest);
-
 			result = Math.ceil((amount + (interest/100)*amount*(time/12))/time);
-
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
 			return true;
+			
 		} catch (Exception e) {
-			ctx.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
 			return false;
 		}
 	}

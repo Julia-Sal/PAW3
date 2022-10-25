@@ -13,32 +13,24 @@
 		<h1>Kalkulator kredytowy</h1>
 		
 	
-	<h:form>
-	<div class="card">
-	
-    <p:tabMenu activeIndex="#{param.i}">
-        <p:menuitem value="Home" url="localhost:8080/kredyt" icon="pi pi-fw pi-home">
-            <f:param name="i" value="0"/>
-        </p:menuitem>
-        <p:menuitem value="Primefaces : Documentation" url="http://www.primefaces.org/documentation" target="_blank">
-            <f:param name="i" value="0"/>
-        </p:menuitem>
-        <p:menuitem value="Primefaces : Demo" url="https://www.primefaces.org/showcase/getstarted.xhtml?jfwid=1438c" target="_blank">
-            <f:param name="i" value="0"/>
-        </p:menuitem>
-	</p:tabMenu>
-	</div>
-	</h:form>
-<!--  	
 		<h:form>
 			<div class="card">
-    		<p:breadCrumb>
-        		<p:menuitem value="Kalkulator" url="localhost:8080/kredyt"/>
-        		<p:menuitem value="Primefaces : Dokumentation" url="http://www.primefaces.org/documentation"/>
-        		<p:menuitem value="Primefaces : Demo" url="https://www.primefaces.org/showcase/getstarted.xhtml?jfwid=1438c"/>
-    		</p:breadCrumb>
+	
+    			<p:tabMenu activeIndex="#{param.i}">
+        			<p:menuitem value="Home" url="localhost:8080/kredyt" icon="pi pi-fw pi-home">
+            			<f:param name="i" value="0"/>
+        			</p:menuitem>
+        			
+       				 <p:menuitem value="Primefaces : Documentation" url="http://www.primefaces.org/documentation" target="_blank">
+            			<f:param name="i" value="0"/>
+        			</p:menuitem>
+        			
+        			<p:menuitem value="Primefaces : Demo" url="https://www.primefaces.org/showcase/getstarted.xhtml?jfwid=1438c" target="_blank">
+            			<f:param name="i" value="0"/>
+        			</p:menuitem>
+				</p:tabMenu>
 			</div>
-		</h:form>-->
+		</h:form>
 	</p:panel>
 	
 </h:head>
@@ -46,27 +38,25 @@
 
 <h:body>
 	
-	<!-- KALKULATOR -->
+	<!-- KALKULATOR 1--> 
 	<p:panel header="Julia Sałacka 18.10.2022" toggleable="true" toggleSpeed="500"
-                closeSpeed="500" widgetVar="panel"> 
-		<h:form id="bla">
+                closeSpeed="500" widgetVar="panel" collapsed = "true"> 
+		<h:form id="bla1">
 	
-		<h:panelGrid id="grid" columns="3" cellpadding="5">
+		<h:panelGrid id="grid1" columns="3" cellpadding="5">
 	
-  				<p:outputLabel for="x" value="kwota:" />
-  				<p:inputText id="x" value="#{calcBB.amount}" required="true" requiredMessage = "Brak wartości" />
-				<p:message for="x" />
+  				<p:outputLabel for="x1" value="kwota:" />
+  				<p:inputText id="x1" value="#{calcBB.amount}" required="true" requiredMessage = "Brak wartości" />
+				<p:message for="x1" />
   		
-  				<p:outputLabel for="y" value="ilość miesięcy:" /> 
-  				<p:inputText id="y" value="#{calcBB.time}" required="true" requiredMessage = "Brak wartości"/>
-				<p:message for="y" />
+  				<p:outputLabel for="y1" value="ilość miesięcy:" /> 
+  				<p:inputText id="y1" value="#{calcBB.time}" required="true" requiredMessage = "Brak wartości"/>
+				<p:message for="y1" />
 		
-				<p:outputLabel for="z" value="oprocentowanie:" /> 
-				<p:inputText id="z" value="#{calcBB.interest}" required="true" requiredMessage = "Brak wartości"/>
-				<p:message for="z" />
+				<p:outputLabel for="z1" value="oprocentowanie:" /> 
+				<p:inputText id="z1" value="#{calcBB.interest}" required="true" requiredMessage = "Brak wartości"/>
+				<p:message for="z1" />
 	
-		
-				<!--  <p:commandButton value="Oblicz" action="#{calcBB.calc()}" update ="@form"/>-->
 		
 				<p:commandButton value="AJAX" action="#{calcBB.calc_AJAX()}" update="msg" />
 		
@@ -77,7 +67,44 @@
 		</h:form>
 	</p:panel>
 	
-
+	<!-- KALKULATOR2 -->
+	<p:panel header="Julia Sałacka 25.10.2022" toggleable="true" toggleSpeed="500"
+                closeSpeed="500" widgetVar="panel2"> 
+		
+		<div class="card">	
+			<h:form id="bla2">
+	
+			 
+				<h:panelGrid id="grid" columns="3" cellpadding="5">
+	
+  					<p:outputLabel for="amount" value="kwota:" />
+  					<p:inputText id="amount" value="#{calcBB.amount}" required="true" requiredMessage = "nie podano kwoty" converterMessage = "kwota: podano niewłaściwą wartość" validatorMessage="Podana wartość kwoty jest za mała (min 500zł)">
+  						<f:validateDoubleRange minimum="500"/>
+  					</p:inputText>
+					<p:message for="amount" />
+  					
+  					<p:outputLabel for="time" value="ilość miesięcy:" /> 
+  					<p:inputText id="time" value="#{calcBB.time}" required="true" requiredMessage = "nie podano czasu" converterMessage = "czas: podano niewłaściwą wartość" validatorMessage="Podana wartość czasu jest za mała (min 1 miesiąc)">
+						<f:validateDoubleRange minimum="1"/>
+					</p:inputText>	
+					<p:message for="time" />
+		
+					<p:outputLabel for="interest" value="oprocentowanie:" /> 
+					<p:inputText id="interest" value="#{calcBB.interest}" required="true" requiredMessage = "nie podano oprocentowania" converterMessage = "oprocentowanie: podano niewłaściwą wartość" validatorMessage="Podana wartość oprocentowania jest niewłaściwa (1%-100%)">
+						<f:validateDoubleRange minimum="1" maximum="100"/>
+					</p:inputText>
+					<p:message for="interest" />
+	
+		
+					<p:commandButton value="AJAX" action="#{calcBB.calc_AJAX()}" update="msg" />
+		
+				</h:panelGrid>	
+		
+				<p:messages id="msg" /> 
+	
+			</h:form>
+		</div>
+	</p:panel>
 	
 	
 	
