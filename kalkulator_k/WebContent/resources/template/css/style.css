@@ -1,6 +1,7 @@
 body{
 	font-family: 'Century Gothic',helvetica,verdana,arial;
 	background: rgb(31,31,31);
+	background-attachment: fixed;
 	background-size: cover;
 	margin:0;
 }
