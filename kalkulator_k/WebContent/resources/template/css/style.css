@@ -1,6 +1,6 @@
 body{
 	font-family: 'Century Gothic',helvetica,verdana,arial;
-	background: url("../img/w1.jpg.jsf?ln=template") no-repeat center center fixed;
+	background: rgb(31,31,31);
 	background-size: cover;
 	margin:0;
 }
@@ -14,9 +14,14 @@ body{
 }
 
 .box{
-	padding: 1em;
-	border-radius: 3px;
-	background-color: #fff;
+	border-radius: 0px;
+	background-color: rgb(50,50,50);
+}
+
+.text_header{
+	text-align:center; 
+	font-size:50px; 
+	text-shadow: 2px 2px #000000;
 }
 
 #page_wrapper{
@@ -25,5 +30,5 @@ body{
 }
 
 #footer{
-	text-align: center;
+	text-align: right;
 }

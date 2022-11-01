@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	
+	
+	<p:panel toggleable="true">
+		<h:panelGrid id="bot" columns="1" style = "text-align:right; margin-left: auto" >
+	
+			<p:outputLabel  value="Julia Sałacka PAW3" />
+			<p:outputLabel  value="01.11.2022" />
+	
+		</h:panelGrid>
+		
+		<!-- TIME -->
+		<div style = "text-align:right">
+   			<h:form>
+        		<p:clock pattern="HH:mm:ss" mode="server"/>
+			</h:form>
+		</div>
+		
+	</p:panel>
+	
+
+</ui:composition>
