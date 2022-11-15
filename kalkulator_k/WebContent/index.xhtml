@@ -19,7 +19,7 @@
 <ui:define name="pageContent">
 	
 	<!-- KALKULATOR 1--> 
-	<p:panel header="Julia Sałacka 18.10.2022" toggleable="true" toggleSpeed="500"
+	<p:panel header="KALKULATOR - Julia Sałacka 18.10.2022" toggleable="true" toggleSpeed="500"
                 closeSpeed="500" widgetVar="panel" collapsed = "true"> 
 		<h:form id="bla1">
 	
@@ -50,7 +50,7 @@
 	
 	
 	<!-- KALKULATOR2 -->
-	<p:panel header="Julia Sałacka 25.10.2022" toggleable="true" toggleSpeed="500"
+	<p:panel header="KALKULATOR - Julia Sałacka 25.10.2022" toggleable="true" toggleSpeed="500"
                 closeSpeed="500" widgetVar="panel2"> 
 		
 		<div class="card">	
@@ -78,7 +78,7 @@
 					<p:message for="interest" />
 	
 		
-					<p:commandButton value="AJAX" action="#{calcBB.calc_AJAX()}" update="msg" />
+					<p:commandButton value="OBLICZ" action="#{calcBB.calc_AJAX()}" update="msg" />
 		
 				</h:panelGrid>	
 		
@@ -90,23 +90,67 @@
 	
 	<!-- color = 160;0;47-->
 	
-	<!--
-	<p:panel>
-		<h:panelGrid id="bot" columns="1" style = "text-align:right; margin-left: auto" >
-	
-		<p:outputLabel  value="Julia Sałacka PAW3" />
-		<p:outputLabel  value="18.10.2022" />
-	
-		</h:panelGrid>
+	<!-- BAZY DANYCH -->
+	<p:panel header="BAZY DANYCH - Julia Sałacka 15.11.2022" toggleable="true" toggleSpeed="500"
+                closeSpeed="500" widgetVar="panel3"> 
 		
-		
-		<div class="card align-items-right "  style = "text-align:right">
-   		<h:form>
-        <p:clock pattern="HH:mm:ss" mode="server" style="background-color:red"/>
-		</h:form>
-		</div>
+		<div class="card">	
+			<h:form id="bla3">
+					
+			<h:panelGrid columns="1" cellpadding="5"> 
+				<p:outputLabel value="nazwisko:" />
+				<p:inputText value="#{personListBB.surname}" />
+				<p:commandButton value="Szukaj" update="form-table" />
+				<p:commandButton value="Dodaj nową osobę" action="#{personListBB.newPerson()}" style="margin-bottom:1em;"/>
+			</h:panelGrid>
+	
+			</h:form>
+		</div> 
+	
+	
+	<!-- TABELKA -->
+	<h:form id="form-table" style="margin-bottom:1em;">
+		<p:dataTable value="#{personListBB.list}" var="p">
 
-	</p:panel> -->
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="IMIĘ" />
+				</f:facet>
+				<h:outputText value="#{p.name}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="NAZWISKO" />
+				</f:facet>
+				<h:outputText value="#{p.surname}" />
+			</p:column>
+
+			<p:column priority="4">
+				<f:facet name="header">
+					<h:outputText value="DATA URODZENIA" />
+				</f:facet>
+				<h:outputText value="#{p.birthdate}">
+					<f:convertDateTime pattern="dd-MM-yyyy" />
+				</h:outputText>
+			</p:column>
+
+<!--
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="OPCJE" />
+				</f:facet>
+
+				<p:commandButton value="Edytuj"
+					action="#{personListBB.editPerson(p)}" />
+
+				
+			</p:column>
+-->
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+	
 	
 </ui:define>
 
