@@ -1,0 +1,38 @@
+/* Do napisania od zera 
+
+body{
+	font-family: 'Century Gothic',helvetica,verdana,arial;
+	background: rgb(31,31,31);
+	background-attachment: fixed;
+	background-size: cover;
+	margin:0;
+}
+
+.bottom-space{
+	margin-bottom: 1em;
+}
+
+.top-space{
+	margin-top: 1em;
+}
+
+.box{
+	border-radius: 0px;
+	background-color: rgb(50,50,50);
+}
+
+.text_header{
+	text-align:center; 
+	font-size:50px; 
+	text-shadow: 2px 2px #000000;
+}
+
+#page_wrapper{
+	margin: 1em;
+	min-width: 700px;
+}
+
+#footer{
+	text-align: center;
+}
+*/
