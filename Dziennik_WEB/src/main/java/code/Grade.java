@@ -7,10 +7,10 @@ import javax.inject.Named;
 @RequestScoped
 public class Grade {
 //wyświetlanie ocen
-private static final String PAGE_GRADE = "grade?faces-redirect=true";
+private static final String PAGE_GRADE = "/pages/other/grade?faces-redirect=true";
 	
 	public String showGradePage(){
-		//flash.put("person", person);
+		
 		return PAGE_GRADE;
 	}
 //obliczanie średniej

@@ -49,7 +49,7 @@ public class SecurityFilter implements Filter {
 				if (!perm.isEmpty()) {
 					String[] row = perm.split(":");
 					String resource = row[0].trim();
-					if (!resource.isEmpty()) { // if resource is not empty
+					if (!resource.isEmpty()) { ;// if resource is not empty
 						HashSet<String> roles = new HashSet<String>();
 						if (row.length > 1) {
 							String[] rawroles = row[1].split(",");
@@ -76,7 +76,7 @@ public class SecurityFilter implements Filter {
 		// load no permission page
 		noPermitionPage = config.getInitParameter("noPermitionPage");
 		if (noPermitionPage == null) {
-			noPermitionPage = "/login.xhtml";
+			noPermitionPage = "/login.jsf";
 		}
 		publicResources.add(noPermitionPage);
 		// load auto invalidate configuration

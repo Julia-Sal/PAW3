@@ -11,45 +11,56 @@
 
 	<ui:define name="title">
 		<div class="font-family t-size-30">Szkoła podstawowa nr 5 w Katowicach</div>
-		<div class="font-family t-size-20 t-color-dark">Oceny</div>
+		<div class="font-family t-size-20 t-color-dark">Zalogowano</div>
 	</ui:define>	
 		
 		
 	
 	<ui:define name="pageContent">
-		<div>
-			  <p:panelGrid columns="6" cellpadding="5" layout="grid" class="grades pad-50" style="max-width: 1000px;">
-			  			<h:outputText class="text-normal font-family" value=""/>
-			  			<h:outputText class="text-normal font-family" value="Poniedziałek"/>
-        				<h:outputText class="text-normal font-family" value="Wtorek"/>
-        				<h:outputText class="text-normal font-family" value="Środa"/>
-        				<h:outputText class="text-normal font-family" value="Czwartek"/>
-			  			<h:outputText class="text-normal font-family" value="Piątek"/>
-			  			
+	<h:form>
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style">
+			  		<p class="text-normal font-family">Imię: Zmienna</p> 
+			  		<p class="text-normal font-family">Nazwisko: Zmienna</p>	
+			  		<p class="text-normal font-family">Uprawnienia: Zmienna</p> 
+			  		<p class="text-normal font-family">Klasa: Zmienna</p> 
+			  	</div>
+			</div>
+		</div>
+	
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style">
+			  		<p class="text-normal font-family">Ostatnie oceny:</p> 
+			  		<p class="text-normal font-family" style="margin-left: 25px;">Zmienna: Ocena</p> 
+			  	</div>
+			</div>
+		</div>
+	</h:form>	
+	<h:form>	
+		<div style="padding-bottom: 150px;" class="pad-50">
+			<div class="normal-box">
+				<div class="style">
+					<p class="text-normal font-family">Jutrzejsze zajęcia:</p>
+					<p:panelGrid columns="2" cellpadding="5" layout="grid" style="width: 250px;">
 			  			<h:outputText class="text-normal font-family" value="8:00"/>
         				<h:outputText class="text-normal font-family" value="Matematyka"/>
-        				<h:outputText class="text-normal font-family" value="Fizyka"/>
-        				<h:outputText class="text-normal font-family" value="W-F"/>
-        				<h:outputText class="text-normal font-family" value="Plastyka"/>
-        				<h:outputText class="text-normal font-family" value="Muzyka"/>
-        				
         				<h:outputText class="text-normal font-family" value="8:45"/>
         				<h:outputText class="text-normal font-family" value="Fizyka"/>
-        				
         				<h:outputText class="text-normal font-family" value="9:45"/>
         				<h:outputText class="text-normal font-family" value="W-F"/>
-        				
         				<h:outputText class="text-normal font-family" value="10:30"/>
         				<h:outputText class="text-normal font-family" value="Plastyka"/>
-        				
         				<h:outputText class="text-normal font-family" value="11:35"/>
         				<h:outputText class="text-normal font-family" value="Fizyka"/>
-        				
         				<h:outputText class="text-normal font-family" value="12:30"/>
         				<h:outputText class="text-normal font-family" value="Muzyka"/>
-			  </p:panelGrid> 
-			  
+			  		 </p:panelGrid> 
+			  	</div>
+			</div>
 		</div>
+	</h:form>
 	</ui:define>
 </ui:composition>
 </html>

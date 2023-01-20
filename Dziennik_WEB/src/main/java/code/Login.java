@@ -18,11 +18,11 @@ import javax.servlet.http.HttpSession;
 @RequestScoped
 public class Login {
 	
-	private static final String PAGE_ADMIN = "admin?faces-redirect=true";
-	private static final String PAGE_TEACHER = "teacher?faces-redirect=true";
-	private static final String PAGE_STUDENT = "student?faces-redirect=true";
-	private static final String PAGE_PARENT = "parent?faces-redirect=true";
-	private static final String PAGE_LOGIN = "index?faces-redirect=true";
+	private static final String PAGE_ADMIN = "/pages/admin/admin?faces-redirect=true";
+	private static final String PAGE_TEACHER = "/pages/teacher/teacher?faces-redirect=true";
+	private static final String PAGE_STUDENT = "/pages/student/student?faces-redirect=true";
+	private static final String PAGE_PARENT = "/pages/parent/parent?faces-redirect=true";
+	private static final String PAGE_LOGIN = "/pages/login?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	
 	private String login;
@@ -64,6 +64,9 @@ public class Login {
 			if (roles != null) { //save roles in RemoteClient
 				for (String role: roles) {
 					client.getRoles().add(role);
+					
+					HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
+					client.store(request);
 					
 					if (role.equals("student")){
 		                return PAGE_STUDENT;
