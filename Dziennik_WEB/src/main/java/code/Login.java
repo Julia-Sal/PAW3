@@ -13,15 +13,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 @Named
 @RequestScoped
-public class Login {
-	
-	private static final String PAGE_ADMIN = "/pages/admin/admin?faces-redirect=true";
-	private static final String PAGE_TEACHER = "/pages/teacher/teacher?faces-redirect=true";
-	private static final String PAGE_STUDENT = "/pages/student/student?faces-redirect=true";
-	private static final String PAGE_PARENT = "/pages/parent/parent?faces-redirect=true";
+public class Login {	
 	private static final String PAGE_LOGIN = "/pages/login?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	
@@ -34,7 +28,6 @@ public class Login {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
 	public String getLogin() {
 		return login;
 	}
@@ -42,7 +35,6 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 	public String getPassword() {
 		return password;
 	}
@@ -61,22 +53,14 @@ public class Login {
 			client.setDetails(user);
 			List<String> roles = userDAO.getRolesByLogin(user);//get User roles
 			
-			if (roles != null) { //save roles in RemoteClient
-				for (String role: roles) {
+			if (roles != null) { 
+				for (String role: roles) {				//zapisz role 
 					client.getRoles().add(role);
-					
 					HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 					client.store(request);
 					
-					if (role.equals("student")){
-		                return PAGE_STUDENT;
-		            } else if (role.equals("teacher")){
-		                return PAGE_TEACHER;
-		            } else if (role.equals("admin")){
-		                return PAGE_ADMIN;
-		            } else if (role.equals("parent")){
-		                return PAGE_PARENT;
-		            }
+					Profile profile = new Profile();	//zwróć stronę stosowną do roli
+					return profile.showProfile(role, client, userDAO);	
 				}
 			}
 			return PAGE_STAY_AT_THE_SAME;

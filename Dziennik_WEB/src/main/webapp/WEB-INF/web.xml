@@ -15,6 +15,7 @@
   	<param-name>primefaces.THEME</param-name>
   	<param-value>luna-blue</param-value>  
   	</context-param>
+  <display-name>Dziennik</display-name>
 	
   <filter>
 		<filter-name>SecurityFilter</filter-name>

@@ -24,7 +24,7 @@ public class RoleDAO {
 		em.remove(em.merge(role));
 	}
 
-	public Role get(Role id) {
+	public Role get(int id) {
 		return em.find(Role.class, id);
 	}
 }

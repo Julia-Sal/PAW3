@@ -42,7 +42,6 @@ public class RemoteClient<T> {
 	public String getLogin() {
 		return login;
 	}
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
@@ -50,7 +49,6 @@ public class RemoteClient<T> {
 	public String getPass() {
 		return pass;
 	}
-
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
@@ -58,7 +56,6 @@ public class RemoteClient<T> {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -66,7 +63,6 @@ public class RemoteClient<T> {
 	public String getRemoteAddr() {
 		return remoteAddr;
 	}
-
 	public void setRemoteAddr(String remoteAddr) {
 		this.remoteAddr = remoteAddr;
 	}
@@ -74,7 +70,6 @@ public class RemoteClient<T> {
 	public String getRemoteHost() {
 		return remoteHost;
 	}
-
 	public void setRemoteHost(String remoteHost) {
 		this.remoteHost = remoteHost;
 	}
@@ -82,7 +77,6 @@ public class RemoteClient<T> {
 	public int getRemotePort() {
 		return remotePort;
 	}
-
 	public void setRemotePort(int remotePort) {
 		this.remotePort = remotePort;
 	}
@@ -90,7 +84,6 @@ public class RemoteClient<T> {
 	public T getDetails() {
 		return details;
 	}
-
 	public void setDetails(T details) {
 		this.details = details;
 	}
@@ -98,7 +91,6 @@ public class RemoteClient<T> {
 	public HashSet<String> getRoles() {
 		return roles;
 	}
-
 	public void setRoles(HashSet<String> roles) {
 		this.roles = roles;
 	}
@@ -106,7 +98,6 @@ public class RemoteClient<T> {
 	public boolean isInRole(String role) {
 		return roles.contains(role);
 	}
-
 	public boolean isInOneRole(HashSet<String> roles) {
 		boolean found = false;
 		for (String role : roles) {

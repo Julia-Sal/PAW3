@@ -21,10 +21,9 @@
 		<div style="text-align: left;" class="pad-50">
 			<div class="normal-box">
 				<div class="style">
-			  		<p class="text-normal font-family">Imię: Zmienna</p> 
-			  		<p class="text-normal font-family">Nazwisko: Zmienna</p>	
-			  		<p class="text-normal font-family">Uprawnienia: Zmienna</p> 
-			  		<p class="text-normal font-family">Klasa: Zmienna</p> 
+			  		<p class="text-normal font-family">Imię: #{remoteClient.details.name}</p> 
+			  		<p class="text-normal font-family">Nazwisko: #{remoteClient.details.surname}</p>
+			  		<p class="text-normal font-family">Klasa: #{profile.className}</p> 
 			  	</div>
 			</div>
 		</div>
@@ -33,7 +32,7 @@
 			<div class="normal-box">
 				<div class="style">
 			  		<p class="text-normal font-family">Ostatnie oceny:</p> 
-			  		<p class="text-normal font-family" style="margin-left: 25px;">Zmienna: Ocena</p> 
+			  		<p class="text-normal font-family" style="margin-left: 25px;">#{profile.subject} : #{profile.lastGrade}</p> 
 			  	</div>
 			</div>
 		</div>

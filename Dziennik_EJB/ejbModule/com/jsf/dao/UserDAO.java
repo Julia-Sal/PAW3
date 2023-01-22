@@ -1,6 +1,5 @@
 package com.jsf.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,8 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.jsf.entities.User;
-import com.jsf.entities.UserRole;
-import com.jsf.entities.Role;
 
 @Stateless
 public class UserDAO {
@@ -60,13 +57,21 @@ public class UserDAO {
 	//sprawdź czy takie dane umożliwiają zalogowanie, jeśli tak zwróć true
 	public User getUserFromDatabase(String login, String password) {
 		User user = getUserByLogin(login);
-		//User user = getUserById(1);
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
         }
 		else{
         	return null;
         }
+	}
+	
+	//znajdź klasy, które są przypisane do użytkownika.
+	public List<String> getClassNameByUserID(int idUser){
+		Query query = em.createQuery("SELECT c.className FROM Class c JOIN c.classUsers cu JOIN cu.user u WHERE u.idUser = :idUser", String.class);
+		query.setParameter("idUser", idUser);
+               
+		List<String> classNameList = query.getResultList();
+		return classNameList;		
 	}
 	
 }
