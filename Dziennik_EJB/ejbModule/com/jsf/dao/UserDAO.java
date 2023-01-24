@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.jsf.entities.User;
 
@@ -35,27 +36,17 @@ public class UserDAO {
 		   return em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class)
 		        .setParameter("login", login)
 		        .getSingleResult();
-		   
 		}
 	
-	//zwróć rolę poprzez login
-	public List<String> getRolesByLogin(User user) {
-		
+	
+	public List<String> getRolesByLogin(User user) {//zwróć rolę poprzez login
 		Query query = em.createQuery("SELECT r.roleName FROM Role r JOIN r.userRoles ur JOIN ur.user u WHERE u.login = :login", String.class);
 		query.setParameter("login", user.getLogin());	
-		
-		try {
-		List<String> roles = query.getResultList();
-		return roles;
-		} catch (Exception e) {
-			return null;
-		}
-		
-		
+		return query.getResultList();
 	}
 	
-	//sprawdź czy takie dane umożliwiają zalogowanie, jeśli tak zwróć true
-	public User getUserFromDatabase(String login, String password) {
+	
+	public User getUserFromDatabase(String login, String password) {//sprawdź czy takie dane umożliwiają zalogowanie, jeśli tak zwróć true
 		User user = getUserByLogin(login);
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
@@ -65,13 +56,21 @@ public class UserDAO {
         }
 	}
 	
-	//znajdź klasy, które są przypisane do użytkownika.
-	public List<String> getClassNameByUserID(int idUser){
+	
+	public List<String> getClassNameByUserID(int idUser){//znajdź klasy, które są przypisane do użytkownika.
 		Query query = em.createQuery("SELECT c.className FROM Class c JOIN c.classUsers cu JOIN cu.user u WHERE u.idUser = :idUser", String.class);
 		query.setParameter("idUser", idUser);
                
 		List<String> classNameList = query.getResultList();
 		return classNameList;		
 	}
+	
+	
+	public List<User> getUsersByRole(String role, String param) {//zwraca użytkowników o podanym wyszukiwaniu
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.userRoles ur JOIN ur.role r WHERE (lower(u.name) LIKE lower(concat('%',:param,'%')) OR lower(u.surname) LIKE lower(concat('%',:param,'%'))) AND r.roleName = :role", User.class);
+        query.setParameter("role", role);
+        query.setParameter("param", param);
+        return query.getResultList();
+    }
 	
 }

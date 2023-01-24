@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 
 body{
-	background: rgb(3,2,9);
-	background: linear-gradient(0deg, rgba(3,2,9,1) 0%, rgba(106,129,179,1) 43%, rgba(155,230,245,1) 100%);
-	background-attachment: fixed;
+	background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(45,63,83,1) 40%, rgba(58,76,99,1) 50%, rgba(45,63,83,1) 60%, rgba(0,0,0,1) 100%);
+background-attachment: fixed;
 }
 
 .text-header{
@@ -14,6 +14,10 @@ body{
 
 .button-size{
 	width: 250px;
+}
+
+.button-size-small{
+	width: 100px;
 }
 
 
@@ -94,12 +98,12 @@ button.ui-button {
 	height: 500px;
 	margin-left: auto;
   	margin-right: auto;
-  	background-color: rgba(50, 50, 50, 0.7);
+  	background-color: rgba(50, 50, 50, 0.5);
   	}
 
 .normal-box{
 	width: 100%;
-	background-color: rgba(50, 50, 50, 0.7);
+	background-color: rgba(50, 50, 50, 0.5);
 }
 
 .grades{
@@ -111,7 +115,7 @@ button.ui-button {
 }
 
 .bg{
-	background-color: rgba(50, 50, 50, 0.7);
+	background-color: rgba(50, 50, 50, 0.5);
 }
 
 .bg-size{
@@ -120,16 +124,14 @@ button.ui-button {
 
 #page_wrapper{
 	height: 100vh;
-	width: 100vw;
+	margin-left: 150px;
+	margin-right: 150px;
 	min-width: 700px;
-	background-color: rgba(50, 50, 50, 0.7);
+	background-color: rgba(50, 50, 50, 0.5);
 }
 
-#footer{
-	text-align: right;
-   	position: fixed;
-   	bottom: 0;
-   	width: 100%;
-}
+
+
+
 
 

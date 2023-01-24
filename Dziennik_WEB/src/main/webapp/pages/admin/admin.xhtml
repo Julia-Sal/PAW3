@@ -10,26 +10,45 @@
 <ui:composition template="/templates/page-template.xhtml">
 
 	<ui:define name="title">
-		<div class="font-family t-size-30">Szkoła podstawowa nr 5 w Katowicach</div>
+		<div class="font-family t-size-30">#{txt.title}</div>
 		<div class="font-family t-size-20 t-color-dark">Zalogowano jako administrator</div>
 	</ui:define>	
 	
+	<ui:define name="menu">
+		<h:form>
+		<p:menubar>
+			<p:menuitem value="Profile" icon="pi pi-fw pi-user" action="#{profile.showProfile(remoteClient.roles[0])}"/>
+          	<p:menuitem value="Zarządzaj użytkownikami" icon="pi-user-edit" action="#{admin.showEditUser()}"/>	
+     		<p:divider layout="vertical"/>
+      			<p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
+     	</p:menubar>
+     	</h:form>
+	</ui:define>
+	
 	<ui:define name="pageContent">
 		<h:form>
-		<p:panel style="text-align: left;">	
-			<h1>Witaj!</h1>
-			<h5>ZMIENNA</h5>
-			<h5>Uprawnienia: Administrator</h5>
-		</p:panel>
-		
-		<p:panel style="text-align: center;">
-			<p:panelGrid columns="1" cellpadding="5" layout="grid">
-				<p:commandButton type="submit" class="button-size" value="Dodaj użytkownika"/>
-				<p:commandButton type="submit" class="button-size" value="Zarządzaj użytkownikami"/>
-				<p:commandButton class="button-size" value="Zarządzaj planami zajęć"/>
-				<p:commandButton class="button-size" value="Informacje"/>
-			</p:panelGrid>
-		</p:panel>
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style">
+					<p class="text-normal font-family">#{txt.admin_txt}</p> 
+			  		<p class="text-normal font-family">Imię: #{remoteClient.details.name}</p> 
+			  		<p class="text-normal font-family">Nazwisko: #{remoteClient.details.surname}</p> 
+			  	</div>
+			</div>
+		</div>
+		</h:form>
+		<h:form>
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style" style="margin: auto;">
+					<p:panelGrid columns="1" cellpadding="5" layout="grid" style="width: 300px; text-align: center;">
+						<p:commandButton type="submit" class="button-size" value="Dodaj użytkownika" action="#{admin.showAddUser()}"/>
+						<p:commandButton type="submit" class="button-size" value="Zarządzaj użytkownikami" action="#{admin.showEditUser()}"/>
+						<p:commandButton class="button-size" value="Zarządzaj planami zajęć"/>
+					</p:panelGrid>
+				</div>
+			</div>
+		</div>
 		</h:form>
 
 

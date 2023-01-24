@@ -16,7 +16,11 @@
   	<param-value>luna-blue</param-value>  
   	</context-param>
   <display-name>Dziennik</display-name>
-	
+	<mime-mapping>
+   <extension>jsp</extension>
+   <mime-type>text/html</mime-type>
+  </mime-mapping>
+
   <filter>
 		<filter-name>SecurityFilter</filter-name>
 		<filter-class>javax.faces.simplesecurity.SecurityFilter</filter-class>

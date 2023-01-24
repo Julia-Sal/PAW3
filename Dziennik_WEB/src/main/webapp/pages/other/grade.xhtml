@@ -18,7 +18,15 @@
 	
 	<ui:define name="pageContent">
 		<div>
-		
+		<h:form>
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style">
+    				<p:commandButton type="submit" class="font-family text-normal" value="Zaloguj" styleClass="ui-button-primary" action="#{grade.generateList(remoteClient.classNames[0])}"/>
+			  	</div>
+			</div>
+		</div>
+		</h:form>
 			  
 		</div>
 	</ui:define>

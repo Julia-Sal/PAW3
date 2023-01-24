@@ -1,6 +1,8 @@
 package javax.faces.simplesecurity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +14,15 @@ public class RemoteClient<T> {
 	private String login;
 	private String pass;
 	private String name;
+	private String className;
 	private String remoteAddr;
 	private String remoteHost;
 	private int remotePort;
 	private T details;
 
-	private HashSet<String> roles = new HashSet<String>();
-
+	private List<String> roles = new ArrayList<String>();
+	private List<String> classNames = new ArrayList<String>();
+	
 	public RemoteClient() {
 	}
 
@@ -88,11 +92,18 @@ public class RemoteClient<T> {
 		this.details = details;
 	}
 
-	public HashSet<String> getRoles() {
+	public List<String> getRoles() {
 		return roles;
 	}
-	public void setRoles(HashSet<String> roles) {
+	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+	
+	public List<String> getClassNames() {
+		return classNames;
+	}
+	public void setClassNames(List<String> classNames) {
+		this.classNames = classNames;
 	}
 
 	public boolean isInRole(String role) {

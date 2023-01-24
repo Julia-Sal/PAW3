@@ -21,6 +21,7 @@ public class Login {
 	
 	private String login;
 	private String password;
+	private String className;
 	
 	@Inject
 	UserDAO userDAO;
@@ -39,6 +40,14 @@ public class Login {
 		return password;
 	}
 	
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	public String getClassName() {
+		return className;
+	}
+	
+	
 	public String doLogin() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		User user = userDAO.getUserFromDatabase(login, password);
@@ -53,14 +62,19 @@ public class Login {
 			client.setDetails(user);
 			List<String> roles = userDAO.getRolesByLogin(user);//get User roles
 			
+			Profile profile = new Profile();
+			List<String> classNames = profile.fillUserData(client, userDAO);
+					for (String className: classNames) {
+						client.getClassNames().add(className);
+					}
+					
 			if (roles != null) { 
 				for (String role: roles) {				//zapisz role 
 					client.getRoles().add(role);
 					HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 					client.store(request);
-					
-					Profile profile = new Profile();	//zwróć stronę stosowną do roli
-					return profile.showProfile(role, client, userDAO);	
+
+					return profile.showProfile(role);	//zwróć stronę stosowną do roli
 				}
 			}
 			return PAGE_STAY_AT_THE_SAME;

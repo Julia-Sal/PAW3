@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="title">
+		<div class="font-family t-size-30">#{txt.title}</div>
+		<div class="font-family t-size-20 t-color-dark">Zalogowano jako administrator</div>
+	</ui:define>	
+	
+	<ui:define name="menu">
+		<h:form>
+		<p:menubar>
+			<p:menuitem value="Profile" icon="pi pi-fw pi-user" action="#{profile.showProfile(remoteClient.roles[0])}"/>
+          	<p:menuitem value="Zarządzaj użytkownikami" icon="pi-user-edit" action="#{admin.showEditUser()}"/>	
+     		<p:divider layout="vertical"/>
+      			<p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
+     	</p:menubar>
+     	</h:form>
+	</ui:define>
+	
+	<ui:define name="pageContent">
+		
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style" style="margin: auto; text-align: center;">
+					<h:form>
+					<p class="font-family text-normal">#{txt.search}</p>
+						<p:inputText id="variable" value="#{admin.variable}" class="font-family login-textfield text-normal"/>
+					<br/>
+					<p:selectOneButton value="#{admin.roleList}" style="margin-top: 30px;">
+        				<f:selectItems value="#{admin.roleList}" var="roleName" itemValue="#{roleName}" itemLabel="#{roleName}"/>
+    				</p:selectOneButton>
+    				
+    				<p:commandButton type="submit" class="button-size-small" style="margin-left:20px;" value="Wyszukaj" update="dataTable" action="#{admin.getList(roleName)}"/>
+					
+					<p:dataTable id="dataTable" value="#{admin.getList(roleName)}" var="user" style="margin-top: 50px" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+    					<p:column headerText="${txt.name}">
+       						<h:outputText value="#{user[0]}"/>
+    					</p:column>
+    					<p:column headerText="${txt.surname}">
+        					<h:outputText value="#{user[1]}"/>
+    					</p:column>
+    					<p:column headerText="${txt.edit}">
+        					<p:commandButton value="${txt.edit}" action="#{admin.editUser(user)}" update="dataTable"/>
+    					</p:column>
+   						<p:column headerText="${txt.delete}">
+        				<p:commandButton value="${txt.delete}" action="#{admin.setSelectedUser(user)}" onclick="confirmation.show()" update="dataTable" />
+						</p:column>
+					</p:dataTable>
+						<p:confirmDialog id="confirmDialog" message="Czy na pewno chcesz usunąć ten rekord?" header="Potwierdzenie" severity="alert" widgetVar="confirmation">
+							<p:commandButton value="Tak" update="dataTable" action="#{admin.deleteUser()}" oncomplete="confirmation.hide()"/>
+    						<p:commandButton value="Nie" onclick="confirmation.hide()"/>
+						</p:confirmDialog>
+					</h:form>
+					
+				</div>
+			</div>
+		</div>
+		
+
+
+</ui:define>
+</ui:composition>
+</html>
