@@ -33,12 +33,19 @@
 					<p class="font-family text-normal">#{txt.search}</p>
 						<p:inputText id="variable" value="#{admin.variable}" class="font-family login-textfield text-normal"/>
 					<br/>
-					<p:selectOneButton value="#{admin.roleList}" style="margin-top: 30px;">
-        				<f:selectItems value="#{admin.roleList}" var="roleName" itemValue="#{roleName}" itemLabel="#{roleName}"/>
-    				</p:selectOneButton>
-    				
-    				<p:commandButton type="submit" class="button-size-small" style="margin-left:20px;" value="Wyszukaj" update="dataTable" action="#{admin.getList(roleName)}"/>
-					
+					<p:selectOneButton value="#{admin.roleName}" style="margin-top:20px;">
+   						<f:selectItems value="#{admin.roleList}" var="roleName" itemValue="#{roleName}" itemLabel="#{roleName}"/>
+					</p:selectOneButton>
+					<p:commandButton type="submit" class="button-size-small" style="margin-left:20px;" value="Wyszukaj" update="dataTable">
+   						<f:ajax execute="@this" listener="#{admin.getList}" render="dataTable">
+      						<f:param name="roleName" value="#{roleName}"/>
+   						</f:ajax>
+					</p:commandButton>
+   					
+   					
+   					
+   					
+   					
 					<p:dataTable id="dataTable" value="#{admin.getList(roleName)}" var="user" style="margin-top: 50px" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
     					<p:column headerText="${txt.name}">
        						<h:outputText value="#{user[0]}"/>
@@ -47,10 +54,10 @@
         					<h:outputText value="#{user[1]}"/>
     					</p:column>
     					<p:column headerText="${txt.edit}">
-        					<p:commandButton value="${txt.edit}" action="#{admin.editUser(user)}" update="dataTable"/>
+        					<p:commandButton value="${txt.edit}" action="#{admin.editUser(user)}"/>
     					</p:column>
    						<p:column headerText="${txt.delete}">
-        				<p:commandButton value="${txt.delete}" action="#{admin.setSelectedUser(user)}" onclick="confirmation.show()" update="dataTable" />
+        				<p:commandButton value="${txt.delete}" action="#{admin.setSelectedUser(user)}" onclick="confirmation.show()"/>
 						</p:column>
 					</p:dataTable>
 						<p:confirmDialog id="confirmDialog" message="Czy na pewno chcesz usunąć ten rekord?" header="Potwierdzenie" severity="alert" widgetVar="confirmation">

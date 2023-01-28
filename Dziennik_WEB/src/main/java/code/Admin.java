@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jsf.dao.ClassDAO;
 import com.jsf.dao.UserDAO;
+import com.jsf.dao.UserRoleDAO;
 import com.jsf.entities.User;
 
 @Named
@@ -23,6 +28,7 @@ public class Admin {
 	private String password;
 	private String login;
 	private String roleName;
+	private String className;
 	private List<String> roleList;
 	private List<String> classList;
 	private String variable;
@@ -34,6 +40,10 @@ public class Admin {
 	@Inject
 	ClassDAO classDAO;
 
+	@Inject
+	UserRoleDAO userRoleDAO;
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -56,7 +66,6 @@ public class Admin {
 	}
 	
 	public String getPassword() {
-		password = "PASSWORD123";
 		return password;
 	}
 	public void setPassword(String password) {
@@ -70,6 +79,13 @@ public class Admin {
 		this.roleName = roleName;
 	}
 	
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	
 	public List<String> getRoleList() {//znajdz wszystkie role (bez administratora)
 		roleList = classDAO.findRoleNames();
 		return roleList;
@@ -80,7 +96,6 @@ public class Admin {
 
 	public List<String> getClassList() {//znajdz wszystkie klasy
 		classList = classDAO.findAllClassNames();
-		classList.add(null);
 		return classList;
 	}
 	public void setClassList(List<String> classList) {
@@ -88,17 +103,14 @@ public class Admin {
 	}
 	
 	
-	public ListDataModel<Object[]> getList(String roleName){//wyświetl listę użytkowników z daną rolą
-		System.out.println(roleName);
-		//String roleName = "student";
-		
+	public DataModel<Object[]> getList(AjaxBehaviorEvent event){//wyświetl listę użytkowników z daną rolą
 		List<User> userList = userDAO.getUsersByRole(roleName, variable);
 		
 		List<Object[]> data = new ArrayList<>();
 		for(int i=0;i<userList.size();i++) {
 		    data.add(new Object[] {userList.get(i).getName(),userList.get(i).getSurname()});
 		}
-		ListDataModel<Object[]> userDataModel = new ListDataModel<Object[]>(data);
+		DataModel<Object[]> userDataModel = new ListDataModel<Object[]>(data);
 		
 		return userDataModel;
 	}
@@ -115,18 +127,13 @@ public class Admin {
 		return PAGE_ADD_USER;
 	}
 	
-	public String addUser() {
-		//pobierz dane z form i utwórz użytkownika o takich danych
-		//System.out.println(user.getName());
-		System.out.println("ANANAN");
-		//userDAO.insert(user);
+	public void addUser() {//pobierz dane z form i utwórz użytkownika o takich danych i przydziel mu rolę i klasę
 		
-		//przydziel rolę użytkownikowi
-		
-		return "ALA";
-		//jeśli jest studentem to dodaj go do klasy
-		
-		
+		try {
+		userDAO.addNewUserToDatabase(name, surname, login, password, roleName, className);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Dodano nowego użytkownika."));
+		}catch(Exception e) 
+		{FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Nie udało się dodać nowego użytkownika."));}
 	}
 	
 	//Edytowanie użytkowników

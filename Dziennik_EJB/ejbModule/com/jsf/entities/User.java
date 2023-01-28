@@ -3,6 +3,8 @@ package com.jsf.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,6 +48,8 @@ public class User implements Serializable {
 	private List<UserSubject> userSubjects;
 
 	public User() {
+		userRoles = new ArrayList<>();
+		classUsers = new ArrayList<>();
 	}
 
 	public int getIdUser() {

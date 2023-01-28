@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"	 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
 	
 <ui:composition template="/templates/page-template.xhtml">
 
@@ -30,30 +29,29 @@
 			<div class="normal-box">
 				<div class="style">
 				<h:form>
+				<p:growl id="growl" showDetail="true"/>
+				<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+				
 				<p class="font-family text-normal">#{txt.login}</p>
 					<p:inputText id="login" value="#{admin.login}" class="font-family login-textfield text-normal" required="true" requiredMessage="podaj login"/>
 				<p class="font-family text-normal">#{txt.password}</p>
-					<p:inputText disabled="true" id="password" value="#{admin.password}" class="font-family login-textfield text-normal" required="true"	requiredMessage="podaj hasło"/>
+					<p:inputText id="password" value="#{admin.password}" class="font-family login-textfield text-normal" required="true" requiredMessage="podaj hasło"/>
 				<p class="font-family text-normal">#{txt.name}</p>
 					<p:inputText id="name" value="#{admin.name}" class="font-family login-textfield text-normal" required="true" requiredMessage="podaj imię"/>
 				<p class="font-family text-normal">#{txt.surname}</p>
 					<p:inputText id="surname" value="#{admin.surname}" class="font-family login-textfield text-normal" required="true"	requiredMessage="podaj nazwisko"/>
 				<p class="font-family text-normal">#{txt.role}</p>
-    		  	<p:selectOneButton value="#{admin.roleList}">
-        			<f:selectItems value="#{admin.roleList}" var="roleName" itemValue="#{roleName}" itemLabel="#{roleName}"/>
-    			</p:selectOneButton>
+    		  	<p:selectOneButton value="#{admin.roleName}">
+   						<f:selectItems value="#{admin.roleList}" var="roleName" itemValue="#{roleName}" itemLabel="#{roleName}"/>
+				</p:selectOneButton>
     			<br/>
-    			<p:selectOneMenu value="#{admin.classList}" style="margin-top: 50px;">
-        			<f:selectItems value="#{admin.classList}" var="className" itemValue="#{className}" itemLabel="#{item.label}"/>
+    			<p:selectOneMenu value="#{admin.className}" style="margin-top:20px;">
+        			<f:selectItems value="#{admin.classList}" var="className" itemValue="#{className}" itemLabel="#{className}"/>
     			</p:selectOneMenu>
 				
-				<div style="text-align: left" >
-					<div class="style">
-					<h:form>
-						<p:commandButton type="submit" class="button-size-small" value="Anuluj" action="#{profile.showProfile(remoteClient.roles[0])}"/>
-						<p:commandButton type="submit" class="button-size-small" value="Potwierdz" action="#{admin.getName()}"/>
-					</h:form>
-					</div>
+				<div style="text-align: left" >	
+						<p:commandButton type="submit" class="font-family text-normal" value="Anuluj" action="#{profile.showProfile(remoteClient.roles[0])}" style="margin-top:20px; right-margin: 25px;"/>	
+						<p:commandButton type="submit" value="Potwierdz" update="growl" action="#{admin.addUser()}"/>					
 				</div>
 				</h:form>
 				</div>

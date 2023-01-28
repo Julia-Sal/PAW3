@@ -17,8 +17,8 @@
 	<ui:define name="menu">
 		<h:form>
 		<p:menubar>
-			<p:menuitem value="Profile" icon="pi pi-fw pi-user" action="#{profile.showProfile(remoteClient.roles[0])}"/>
-          	<p:menuitem value="Zarządzaj użytkownikami" icon="pi-user-edit" action="#{admin.showEditUser()}"/>	
+			<p:menuitem value="#{txt.menu_profile_label}" icon="pi pi-fw pi-user" action="#{profile.showProfile(remoteClient.roles[0])}"/>
+          	<p:menuitem value="Zarządzaj użytkownikami" icon="pi pi-fw pi-user-edit" action="#{admin.showEditUser()}"/>	
      		<p:divider layout="vertical"/>
       			<p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
      	</p:menubar>

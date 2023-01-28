@@ -16,15 +16,15 @@
 		<div class="card">
   			<h:form>
     			<p:menubar>
-      				<p:submenu label="Profile" icon="pi pi-fw pi-user">
-          				<p:menuitem value="Show Profile" icon="pi pi-fw pi-eye" action="#{profile.showProfile(remoteClient.roles[0])}"/>
-          				<p:menuitem value="Edit" icon="pi pi-fw pi-user-edit"/>
-          				<p:menuitem value="Class list" icon="pi pi-fw pi-angle-double-right" action="#{profile.showClassList()}"/>
+      				<p:submenu label="#{txt.menu_profile_label}" icon="pi pi-fw pi-user">
+          				<p:menuitem value="#{txt.menu_profile}" icon="pi pi-fw pi-eye" action="#{profile.showProfile(remoteClient.roles[0])}"/>
+          				<p:menuitem value="#{txt.menu_edit_password}" icon="pi pi-fw pi-user-edit"/>
+          				<p:menuitem value="#{txt.menu_class_list}" icon="pi pi-fw pi-angle-double-right" action="#{profile.showClassList()}"/>
      				</p:submenu>
-      				<p:menuitem value="Timetable" icon="pi pi-fw pi-calendar" action="#{other.showTimetablePage()}"/>
-      				<p:menuitem value="Grades" icon="pi pi-fw pi-table" action="#{grade.showGradePage}"/>
+      				<p:menuitem value="#{txt.menu_timetable}" icon="pi pi-fw pi-calendar" action="#{other.showTimetablePage()}"/>
+      				<p:menuitem value="#{txt.menu_grades}" icon="pi pi-fw pi-table" action="#{grade.showGradePage}"/>
       				<p:divider layout="vertical"/>
-      				<p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
+      				<p:menuitem value="#{txt.menu_logout}" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
     			</p:menubar>
   			</h:form>
 		</div>
