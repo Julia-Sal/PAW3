@@ -7,23 +7,12 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	
-<ui:composition template="/templates/page-template.xhtml">
+<ui:composition template="/templates/page-template_admin.xhtml">
 
 	<ui:define name="title">
 		<div class="font-family t-size-30">#{txt.title}</div>
 		<div class="font-family t-size-20 t-color-dark">Zalogowano jako administrator</div>
 	</ui:define>	
-	
-	<ui:define name="menu">
-		<h:form>
-		<p:menubar>
-			<p:menuitem value="#{txt.menu_profile_label}" icon="pi pi-fw pi-user" action="#{profile.showProfile(remoteClient.roles[0])}"/>
-          	<p:menuitem value="Zarządzaj użytkownikami" icon="pi pi-fw pi-user-edit" action="#{admin.showEditUser()}"/>	
-     		<p:divider layout="vertical"/>
-      			<p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
-     	</p:menubar>
-     	</h:form>
-	</ui:define>
 	
 	<ui:define name="pageContent">
 		<h:form>

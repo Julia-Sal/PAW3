@@ -54,4 +54,5 @@ public class ClassDAO {
         query.setParameter("adminRole", "admin");
         return query.getResultList();
     }
+    
 }

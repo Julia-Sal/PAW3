@@ -18,16 +18,24 @@
 	
 	<ui:define name="pageContent">
 		<div>
-		<h:form>
-		<div style="text-align: left;" class="pad-50">
-			<div class="normal-box">
-				<div class="style">
-    				<p:commandButton type="submit" class="font-family text-normal" value="Zaloguj" styleClass="ui-button-primary" action="#{grade.generateList(remoteClient.classNames[0])}"/>
-			  	</div>
+		
+			<div style="text-align: left;" class="pad-50">
+				<div class="normal-box" >
+					<div class="grades pad-50" style="max-width: 500px; padding-right: min(50px); padding-left: min(50px)">
+    					<h:form>
+    					<p:dataTable value="#{grade.getList(remoteClient.classNames[0],remoteClient.details.login)}" var="item">
+    					<p:column headerText="${txt.name_subject}">
+       						<h:outputText value="#{item[0]}"/>
+    					</p:column>
+    					<p:column headerText="${txt.name_grade}">
+        					<h:outputText value="#{item[1]}"/>
+    					</p:column>
+						</p:dataTable>
+						</h:form>
+					</div>
+				</div>
 			</div>
-		</div>
-		</h:form>
-			  
+		
 		</div>
 	</ui:define>
 </ui:composition>

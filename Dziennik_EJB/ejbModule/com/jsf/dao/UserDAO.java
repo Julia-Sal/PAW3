@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -74,10 +75,14 @@ public class UserDAO {
 	}
 	
 	public User getUserByLogin(String login) {
-		   return em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class)
+		try {   
+				return em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class)
 		        .setParameter("login", login)
 		        .getSingleResult();
+		} catch (Exception e) {
+				return null;
 		}
+	}
 	
 	
 	public List<String> getRolesByLogin(User user) {//zwróć rolę poprzez login
@@ -110,5 +115,13 @@ public class UserDAO {
         query.setParameter("param", param);
         return query.getResultList();
     }
+	
+	public List<User> getUsersByClassName(String className) {
+		Query query = em.createQuery("SELECT cu.user FROM Class c JOIN c.classUsers cu WHERE c.className = :className")
+		.setParameter("className", className);
+		List<User> userList = query.getResultList();
+		System.out.println(userList);
+		return userList;
+		}
 	
 }

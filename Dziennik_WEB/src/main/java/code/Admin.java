@@ -128,12 +128,16 @@ public class Admin {
 	}
 	
 	public void addUser() {//pobierz dane z form i utwórz użytkownika o takich danych i przydziel mu rolę i klasę
-		
+		//sprawdz, czy podany login już jest w bazie, jesli nie to dodaj uzytkownika
+		if(userDAO.getUserByLogin(login)!=null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Użytkownik o podanym loginie już istnieje."));
+		}else{
 		try {
-		userDAO.addNewUserToDatabase(name, surname, login, password, roleName, className);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Dodano nowego użytkownika."));
+			userDAO.addNewUserToDatabase(name, surname, login, password, roleName, className);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Dodano nowego użytkownika."));
 		}catch(Exception e) 
-		{FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Nie udało się dodać nowego użytkownika."));}
+			{FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Nie udało się dodać nowego użytkownika."));}
+		}
 	}
 	
 	//Edytowanie użytkowników

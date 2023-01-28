@@ -34,8 +34,8 @@ public class Profile {
 	private String className;
 	private String subject;
 	private int lastGrade;
-	//private DataTable dataTable = new DataTable();
 	private ListDataModel<Object[]> userDataModel;
+	
 	@Inject
 	UserDAO userDAO;
 	
@@ -93,9 +93,7 @@ public class Profile {
 		return userDataModel;
 	}
 	
-	
-//wyświetlanie profilu
-	public String showProfile(String role) {
+	public String showProfile(String role) {//wyświetlanie profilu
 		if (role.equals("student")){
             return PAGE_STUDENT;
         } else if (role.equals("teacher")){
@@ -108,9 +106,7 @@ public class Profile {
         	return null;}
 	}
 	
-	
-//wypełnij dane usera	
-	public List<String> fillUserData(RemoteClient<User> client, UserDAO userDAO) {
+	public List<String> fillUserData(RemoteClient<User> client, UserDAO userDAO) {//wypełnij dane usera
 		if(client.getRoles().toString()!="admin") {
 			List<String> classNameList = userDAO.getClassNameByUserID(client.getDetails().getIdUser());
 			return classNameList;		
@@ -118,8 +114,7 @@ public class Profile {
 			return null;}
 	}
 	
-//wyświetl listę osób w klasie
-	public String showClassList() {
+	public String showClassList() {//wyświetl listę osób w klasie
 		return PAGE_LIST;
 	}
 	
