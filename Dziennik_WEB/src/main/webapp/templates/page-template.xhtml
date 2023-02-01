@@ -45,7 +45,7 @@
   							<p class="font-family text-normal">#{txt.change_password_new_conf}</p>
   							<p:password id="passwordThree" value="#{profile.confPassword}" class="font-family login-textfield text-normal"/>
   							
-  							<p:commandButton type="submit" value="Potwierdz" process="chPWD" update="growl" action="#{profile.changePassword(remoteClient.details.login)}" style="margin-top: 20px;"/>
+  							<p:commandButton type="submit" value="#{txt.change_password_submit}" process="chPWD" update="growl" action="#{profile.changePassword(remoteClient.details.login)}" style="margin-top: 20px;"/>
   						</h:form>
   					</div>
   					</div>

@@ -10,12 +10,11 @@
 <ui:composition template="/templates/page-template.xhtml">
 
 	<ui:define name="title">
-		<div class="font-family t-size-30">Szkoła podstawowa nr 5 w Katowicach</div>
-		<div class="font-family t-size-20 t-color-dark">Logowanie</div>
+		<div class="font-family t-size-30">#{txt.title}</div>
+		<div class="font-family t-size-20 t-color-dark">#{txt.login_T}</div>
 	</ui:define>	
 	
 	<ui:define name="menu">
-		
 	</ui:define>	
 
 	<ui:define name="pageContent">
@@ -31,13 +30,11 @@
 				<p class="font-family text-normal">#{txt.password}</p>
 				<p:password id="password" value="#{login.password}" class="font-family login-textfield text-normal" required="true"	requiredMessage="podaj hasło"/>
 
-				<p class="font-family text-small" style="text-align: right;">Nie pamiętam hasła</p>
+				<p class="font-family text-small" style="text-align: right;">#{txt.d_r_pass}</p>
 				
 				<div style="text-align: center;">
-					
 					<p:commandButton type="button" class="font-family text-normal" value="Powrót" styleClass="ui-button-secondary" style="right-margin: 25px;"/>
 					<p:commandButton type="submit" update="growl" class="font-family text-normal" value="Zaloguj" styleClass="ui-button-primary" action="#{login.doLogin()}"/>
-					
 				</div>
 				</h:form>
 			</div>
