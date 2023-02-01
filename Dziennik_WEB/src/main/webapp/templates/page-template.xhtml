@@ -18,7 +18,7 @@
     			<p:menubar>
       				<p:submenu label="#{txt.menu_profile_label}" icon="pi pi-fw pi-user">
           				<p:menuitem value="#{txt.menu_profile}" icon="pi pi-fw pi-eye" action="#{profile.showProfile(remoteClient.roles[0])}"/>
-          				<p:menuitem value="#{txt.menu_edit_password}" icon="pi pi-fw pi-user-edit"/>
+          				<p:menuitem value="#{txt.menu_edit_password}" icon="pi pi-fw pi-user-edit" actionListener="#{profile.showSidebar()}" update="sidebar5"/>
           				<p:menuitem value="#{txt.menu_class_list}" icon="pi pi-fw pi-angle-double-right" action="#{profile.showClassList()}"/>
      				</p:submenu>
       				<p:menuitem value="#{txt.menu_timetable}" icon="pi pi-fw pi-calendar" action="#{other.showTimetablePage()}"/>
@@ -26,8 +26,35 @@
       				<p:divider layout="vertical"/>
       				<p:menuitem value="#{txt.menu_logout}" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
     			</p:menubar>
+    			
+    			<p:sidebar widgetVar="sidebar5" fullScreen="true" id="sidebar5">
+  					<div class="pad-50">
+						<div class="main-box">
+							<div class="login-style">
+						<h:form id="chPWD">
+							<p:growl id="growl" showDetail="true"/>
+							<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+  					
+  							
+  							<p class="font-family text-normal" style="text-align: center; font-size:20px">#{txt.change_password}</p>
+  							
+  							<p class="font-family text-normal">#{txt.change_password_txt}</p>
+  							<p:password id="passwordOne" value="#{profile.password}" class="font-family login-textfield text-normal"/>
+  							<p class="font-family text-normal">#{txt.change_password_new}</p>
+  							<p:password id="passwordTwo" value="#{profile.newPassword}" class="font-family login-textfield text-normal"/>
+  							<p class="font-family text-normal">#{txt.change_password_new_conf}</p>
+  							<p:password id="passwordThree" value="#{profile.confPassword}" class="font-family login-textfield text-normal"/>
+  							
+  							<p:commandButton type="submit" value="Potwierdz" process="chPWD" update="growl" action="#{profile.changePassword(remoteClient.details.login)}" style="margin-top: 20px;"/>
+  						</h:form>
+  					</div>
+  					</div>
+  					</div>
+				</p:sidebar>
+				
   			</h:form>
 		</div>
+		
 	</ui:define>
 	
 	<ui:define name="content">

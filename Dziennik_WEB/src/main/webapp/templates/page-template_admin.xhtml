@@ -12,17 +12,42 @@
 		Nie podano tytułu
 	</ui:define>
 	
-	<ui:define name="menu">
+	<ui:define name="menu"><h:form>
 		<div class="card">
-  			<h:form>
+  			
     			<p:menubar>
 					<p:menuitem value="#{txt.menu_profile_label}" icon="pi pi-fw pi-user" action="#{profile.showProfile(remoteClient.roles[0])}"/>
+          			<p:menuitem value="Dodaj użytkownika" icon="pi pi-fw pi-user-plus" action="#{admin.showAddUser()}"/>	
           			<p:menuitem value="Zarządzaj użytkownikami" icon="pi pi-fw pi-user-edit" action="#{admin.showEditUser()}"/>	
      				<p:divider layout="vertical"/>
       			<p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" action="#{login.doLogout()}"/>
      		</p:menubar>
-  			</h:form>
+  			
 		</div>
+		
+		<p:sidebar widgetVar="sidebar5" fullScreen="true" id="sidebar5">
+  					<div class="pad-50">
+						<div class="main-box">
+							<div class="login-style">
+						<h:form id="chPWD">
+							<p:growl id="growl" showDetail="true"/>
+							<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+  					
+  							<p class="font-family text-normal" style="text-align: center;">#{txt.change_password}</p>
+  							<p class="font-family text-normal">#{txt.change_password_txt}</p>
+  							<p:password id="passwordOne" value="#{profile.password}" class="font-family login-textfield text-normal"/>
+  							<p class="font-family text-normal">#{txt.change_password_new}</p>
+  							<p:password id="passwordTwo" value="#{profile.newPassword}" class="font-family login-textfield text-normal"/>
+  							<p class="font-family text-normal">#{txt.change_password_new_conf}</p>
+  							<p:password id="passwordThree" value="#{profile.confPassword}" class="font-family login-textfield text-normal"/>
+  							
+  							<p:commandButton type="submit" value="Potwierdz" process="chPWD" update="growl" action="#{profile.changePassword(remoteClient.details.login)}"/>
+  						</h:form>
+  					</div>
+  					</div>
+  					</div>
+		</p:sidebar>
+				</h:form>
 	</ui:define>
 	
 	<ui:define name="content">

@@ -3,13 +3,16 @@ package com.jsf.dao;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.swing.SortOrder;
 
 import com.jsf.entities.ClassUser;
 import com.jsf.entities.Role;
@@ -22,6 +25,9 @@ public class UserDAO {
 	
 	@PersistenceContext
 	EntityManager em;
+	
+	@Inject
+	UserDAO userDAO;
 	
 	public void addNewUserToDatabase(String name, String surname, String login, String password, String roleName, String className) {
 		
@@ -74,6 +80,11 @@ public class UserDAO {
 		return em.find(User.class, id);
 	}
 	
+	public void changePassword(String newPassword, String login) {
+		User user = userDAO.getUserByLogin(login);
+		user.setPassword(newPassword);
+	}
+	
 	public User getUserByLogin(String login) {
 		try {   
 				return em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class)
@@ -109,18 +120,34 @@ public class UserDAO {
 		return classNameList;		
 	}
 	
-	public List<User> getUsersByRole(String role, String param) {//zwraca użytkowników o podanym wyszukiwaniu
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.userRoles ur JOIN ur.role r WHERE (lower(u.name) LIKE lower(concat('%',:param,'%')) OR lower(u.surname) LIKE lower(concat('%',:param,'%'))) AND r.roleName = :role", User.class);
-        query.setParameter("role", role);
+	public List<User> getUsersByRole(String roleName, String param) {//zwraca użytkowników o podanym wyszukiwaniu
+		
+		if(roleName==null) {
+			roleName = "student";
+		}if(param==null) {param = "";}
+		
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.userRoles ur JOIN ur.role r WHERE (lower(u.name) LIKE lower(concat('%',:param,'%')) OR lower(u.surname) LIKE lower(concat('%',:param,'%'))) AND r.roleName = :role", User.class);
+		query.setParameter("role", roleName);
         query.setParameter("param", param);
+        
         return query.getResultList();
     }
+	
+	public long countUsersByRole(String roleName, String variable) {
+		
+		
+		TypedQuery<Long> countQuery = em.createQuery("SELECT COUNT(u) FROM User u JOIN u.userRoles ur JOIN ur.role r WHERE (lower(u.name) LIKE lower(concat('%',:param,'%')) OR lower(u.surname) LIKE lower(concat('%',:param,'%'))) AND r.roleName = :role", Long.class);
+		countQuery.setParameter("role", roleName);
+		countQuery.setParameter("param", variable);
+		Long count = countQuery.getSingleResult();
+        return count;
+	}
+	
 	
 	public List<User> getUsersByClassName(String className) {
 		Query query = em.createQuery("SELECT cu.user FROM Class c JOIN c.classUsers cu WHERE c.className = :className")
 		.setParameter("className", className);
 		List<User> userList = query.getResultList();
-		System.out.println(userList);
 		return userList;
 		}
 	

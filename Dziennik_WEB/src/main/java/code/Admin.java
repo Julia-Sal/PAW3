@@ -1,16 +1,26 @@
 package code;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.PrimeFaces.Ajax;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
 
 import com.jsf.dao.ClassDAO;
 import com.jsf.dao.UserDAO;
@@ -19,7 +29,7 @@ import com.jsf.entities.User;
 
 @Named
 @RequestScoped
-public class Admin {
+public class Admin implements Serializable {
 	private static final String PAGE_ADD_USER = "/pages/admin/addUser?faces-redirect=true";
 	private static final String PAGE_EDIT_USER = "/pages/admin/editUser?faces-redirect=true";
 	
@@ -33,6 +43,8 @@ public class Admin {
 	private List<String> classList;
 	private String variable;
 	private User selectedUser;
+	private DataModel<Object[]> list;
+	private LazyDataModel<User> lazyModel;
 	
 	@Inject
 	UserDAO userDAO;
@@ -43,6 +55,23 @@ public class Admin {
 	@Inject
 	UserRoleDAO userRoleDAO;
 	
+	@Inject
+	Flash flash;
+
+	public LazyDataModel<User> getLazyModel() {
+		if(roleName==null) {
+			roleName = (String) flash.get("roleName");
+		}
+		if(variable==null) {
+			variable = (String) flash.get("variable");
+		}
+		lazyModel = new LazyUserDataModel(userDAO.getUsersByRole(roleName, variable));
+		lazyModel.setRowCount((int)userDAO.countUsersByRole(roleName, variable));
+		flash.put("roleName", roleName);
+		flash.put("variable", variable);
+		
+		return lazyModel;
+    }
 	
 	public String getName() {
 		return name;
@@ -103,7 +132,13 @@ public class Admin {
 	}
 	
 	
-	public DataModel<Object[]> getList(AjaxBehaviorEvent event){//wyświetl listę użytkowników z daną rolą
+	public DataModel<Object[]> getList(){//wyświetl listę użytkowników z daną rolą
+		
+	
+		if(roleName==null) {
+			roleName = (String) flash.get("roleName");
+		}
+		
 		List<User> userList = userDAO.getUsersByRole(roleName, variable);
 		
 		List<Object[]> data = new ArrayList<>();
@@ -112,8 +147,11 @@ public class Admin {
 		}
 		DataModel<Object[]> userDataModel = new ListDataModel<Object[]>(data);
 		
+		flash.put("roleName", roleName);
 		return userDataModel;
 	}
+	public void setList(DataModel<Object[]> list) {this.list = list;}
+	
 	
 	public String getVariable() {
 		return variable;
@@ -145,7 +183,11 @@ public class Admin {
 		return PAGE_EDIT_USER;
 	}
 	
-	public void editUser(User selectedUser) {System.out.println("EDIT");}
+	public void editUser() {
+		
+		System.out.println("EDIT");
+		System.out.println("ID: ");
+	}
 	
 	//usuwanie użytkowników
 	public void deleteUser() {System.out.println("DELETE");}
@@ -155,6 +197,7 @@ public class Admin {
 	} 
 	
 	
+	public User getSelectedUser() {return selectedUser;}
 	public void setSelectedUser(User selectedUser) {//pobieranie usera z tabeli
 	    this.selectedUser = selectedUser;
 	}

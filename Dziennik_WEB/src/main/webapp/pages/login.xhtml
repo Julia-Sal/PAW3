@@ -23,6 +23,9 @@
 		<div class="main-box">
 			<div class="login-style">
 				<h:form>
+				<p:growl id="growl" showDetail="true"/>
+				<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+				
 				<p class="font-family text-normal">#{txt.login}</p>
 				<p:inputText id="login" value="#{login.login}" class="font-family login-textfield text-normal" required="true" requiredMessage="podaj login"/>
 				<p class="font-family text-normal">#{txt.password}</p>
@@ -33,7 +36,7 @@
 				<div style="text-align: center;">
 					
 					<p:commandButton type="button" class="font-family text-normal" value="Powrót" styleClass="ui-button-secondary" style="right-margin: 25px;"/>
-					<p:commandButton type="submit" class="font-family text-normal" value="Zaloguj" styleClass="ui-button-primary" action="#{login.doLogin()}"/>
+					<p:commandButton type="submit" update="growl" class="font-family text-normal" value="Zaloguj" styleClass="ui-button-primary" action="#{login.doLogin()}"/>
 					
 				</div>
 				</h:form>

@@ -19,42 +19,28 @@
 			<div class="normal-box">
 				<div class="style" style="margin: auto; text-align: center;">
 					<h:form>
+					<p:growl id="growl" showDetail="true"/>
+					<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+				
 					<p class="font-family text-normal">#{txt.search}</p>
 						<p:inputText id="variable" value="#{admin.variable}" class="font-family login-textfield text-normal"/>
 					<br/>
-					<p:selectOneButton value="#{admin.roleName}" style="margin-top:20px;">
+					<p:selectOneButton value="#{admin.roleName}" style="margin-top:20px;" id="selectOneButton">
    						<f:selectItems value="#{admin.roleList}" var="roleName" itemValue="#{roleName}" itemLabel="#{roleName}"/>
 					</p:selectOneButton>
-					<p:commandButton type="submit" class="button-size-small" style="margin-left:20px;" value="Wyszukaj" update="dataTable">
-   						<f:ajax execute="@this" listener="#{admin.getList}" render="dataTable">
-      						<f:param name="roleName" value="#{roleName}"/>
-   						</f:ajax>
-					</p:commandButton>
-   					
-   					
-   					
-   					
-   					
-					<p:dataTable id="dataTable" value="#{admin.getList(roleName)}" var="user" style="margin-top: 50px" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					<p:commandButton type="submit" class="button-size-small" style="margin-left:20px; margin-bottom:20px" value="Wyszukaj" update="growl dataTable"/>
+   						
+					<p:dataTable var="user" value="#{admin.lazyModel}" lazy="true" paginator="true" rows="10" id="dataTable" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" style="max-width: 1000px; margin: auto;">
     					<p:column headerText="${txt.name}">
-       						<h:outputText value="#{user[0]}"/>
-    					</p:column>
-    					<p:column headerText="${txt.surname}">
-        					<h:outputText value="#{user[1]}"/>
-    					</p:column>
-    					<p:column headerText="${txt.edit}">
-        					<p:commandButton value="${txt.edit}" action="#{admin.editUser(user)}"/>
-    					</p:column>
-   						<p:column headerText="${txt.delete}">
-        				<p:commandButton value="${txt.delete}" action="#{admin.setSelectedUser(user)}" onclick="confirmation.show()"/>
+       						<h:outputLabel value="#{user.name} "/>
+       						<h:outputLabel value=" #{user.surname}"/>
+       					</p:column>
+   						<p:column headerText="${txt.action}" style="max-width: 100px">
+        				<p:button value="${txt.edit}" action="#{admin.editUser()}" disabled="true"/>
+        				<p:commandButton value="${txt.delete}" action="#{admin.deleteUser()}" disabled="true"/>
 						</p:column>
 					</p:dataTable>
-						<p:confirmDialog id="confirmDialog" message="Czy na pewno chcesz usunąć ten rekord?" header="Potwierdzenie" severity="alert" widgetVar="confirmation">
-							<p:commandButton value="Tak" update="dataTable" action="#{admin.deleteUser()}" oncomplete="confirmation.hide()"/>
-    						<p:commandButton value="Nie" onclick="confirmation.hide()"/>
-						</p:confirmDialog>
 					</h:form>
-					
 				</div>
 			</div>
 		</div>

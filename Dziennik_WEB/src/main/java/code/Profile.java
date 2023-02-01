@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.model.ListDataModel;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.PrimeFaces;
 
 import com.jsf.dao.UserDAO;
 import com.jsf.dao.ClassDAO;
@@ -23,7 +25,7 @@ import com.jsf.entities.Class;
 @Named
 @RequestScoped
 public class Profile {
-	
+	private static final long serialVersionUID = 1L;
 	private static final String PAGE_ADMIN = "/pages/admin/admin?faces-redirect=true";
 	private static final String PAGE_TEACHER = "/pages/teacher/teacher?faces-redirect=true";
 	private static final String PAGE_STUDENT = "/pages/student/student?faces-redirect=true";
@@ -35,6 +37,9 @@ public class Profile {
 	private String subject;
 	private int lastGrade;
 	private ListDataModel<Object[]> userDataModel;
+	private String newPassword;
+	private String confPassword;
+	private String password;
 	
 	@Inject
 	UserDAO userDAO;
@@ -71,6 +76,25 @@ public class Profile {
 	}
 	public String getSubject() {
 		return subject;
+	}
+	
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public String getConfPassword() {
+		return confPassword;
+	}
+	public void setConfPassword(String confPassword) {
+		this.confPassword = confPassword;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	public ListDataModel<Object[]> getUserDataModel() {
@@ -119,6 +143,23 @@ public class Profile {
 	}
 	
 	
+	public void showSidebar() {
+		PrimeFaces.current().executeScript("PF('sidebar5').toggle();");
+	}
 	
+	public void changePassword(String login) {
+		String currentPassword = userDAO.getUserByLogin(login).getPassword();
+		if(currentPassword.equals(password)) {
+			if(newPassword.equals(confPassword)) {
+				//ewentualnie jakiś REGEX
+				userDAO.changePassword(newPassword, login);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Hasło zostało zmienione"));
+			}else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Podane hasła nie są takie same"));
+			}
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Podane hasło jest nieprawidłowe"));
+		}
+	}
 	
 }

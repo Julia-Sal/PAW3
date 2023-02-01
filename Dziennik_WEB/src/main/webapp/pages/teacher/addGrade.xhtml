@@ -4,8 +4,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"	 
-	xmlns:p="http://primefaces.org/ui">
-	
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
 <ui:composition template="/templates/page-template_teacher.xhtml">
 
@@ -18,20 +18,19 @@
 		
 <ui:define name="pageContent">
 
-	<h:form>
+	
 		<p:growl id="growl" showDetail="true"/>
 		<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
-		<div style="text-align: left;" class="pad-50">
+		<h:form><div style="text-align: left;" class="pad-50">
 			<div class="normal-box">
 				<div class="style">
-			  		<p class="text-normal font-family">Klasa:</p> 
-			  		<p:selectOneButton value="#{grade.className}">
-   						<f:selectItems value="#{grade.getClassList(remoteClient.details.login)}" var="className" itemValue="#{className}" itemLabel="#{className}"/>
-					</p:selectOneButton>
-    				<br/>
-    				<p:selectOneMenu value="#{grade.studentName}" style="margin-top:20px;">
-        				<f:selectItems value="#{grade.studentList}" var="studentName" itemValue="#{studentName}" itemLabel="#{studentName}"/>
-    				</p:selectOneMenu>
+				
+			  		<p class="text-normal font-family">Uczeń:</p> 
+		
+    				<p:selectOneMenu value="#{grade.studentID}" style="margin-top:20px;">
+        				<f:selectItems value="#{grade.studentList}" var="student" itemValue="#{student.getIdUser()}" itemLabel="#{student.getName()} #{student.getSurname()}"/>
+    				</p:selectOneMenu>					
+    			
     				Ocena:
     				<p:selectOneMenu value="#{grade.gradeValue}" style="margin-top:20px;">
         				<f:selectItem itemLabel="1" itemValue="1"/>
@@ -49,16 +48,47 @@
     				</p:selectOneMenu>
     				
     				<div style="text-align: left" >	
-						<p:commandButton type="submit" class="font-family text-normal" value="Anuluj" action="#{profile.showProfile(remoteClient.roles[0])}" style="margin-top:20px; right-margin: 25px;"/>	
-						<p:commandButton type="submit" value="#{txt.add_grade}" update="growl" action="#{admin.addUser()}"/>					
+    					<h:panelGroup id="buttons">
+							<p:commandButton type="submit" process="@this" class="font-family text-normal" value="Anuluj" action="#{profile.showProfile(remoteClient.roles[0])}" style="margin-top:20px; right-margin: 25px;"/>	
+						
+							<p:commandButton type="submit" value="#{txt.add_grade}" update="growl GradesList" action="#{grade.addGrade()}"/>	
+						</h:panelGroup>
 					</div>
 			  	
 			  	</div>
 			</div>
 		</div>
-	</h:form>	
+		
+		<div style="text-align: left;" class="pad-50">
+			<div class="normal-box">
+				<div class="style">
+					<p:dataTable value="#{grade.getEditGradesList(remoteClient.details.login)}" var="item" id="GradesList">
+    					<p:column headerText="">
+       						<h:outputText value="#{item[0]}"/>
+    					</p:column>
+    					 <p:column headerText="${txt.name_grade}">
+    					 	<ui:repeat value="#{item[1]}" var="ita" >
+      						 <p:commandLink value=" #{ita} " styleClass="ui-button-flat" action="#{grade.deleteGrade()}" update="growl">
+      						 	<p:confirm header="#{txt.confirmation}" message="#{txt.conf_mess_1}" icon="pi pi-exclamation-triangle"/>
+      						 </p:commandLink>
+  						 	</ui:repeat>
+        				</p:column>
+    					<p:column headerText="${txt.avg}">
+        					<h:outputText value="#{item[2]}"/>
+    					</p:column> <!---->
+					</p:dataTable>
+			  	</div>
+			</div>
+		</div>
+		
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="#{txt.no}" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="#{txt.yes}" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+		
+		
 
-
+	</h:form>
 </ui:define>
 </ui:composition>
 </html>
